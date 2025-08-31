@@ -10,7 +10,7 @@ mv wp-config-sample.php wp-config.php
 sed -i "s/define( 'DB_NAME', 'database_name_here' );/define( 'DB_NAME', '${MYSQL_DATABASE}' );/" wp-config.php
 sed -i "s/define( 'DB_USER', 'username_here' );/define( 'DB_USER', '${MYSQL_USER}' );/" wp-config.php
 sed -i "s/define( 'DB_PASSWORD', 'password_here' );/define( 'DB_PASSWORD', '${MYSQL_PASSWORD}' );/" wp-config.php
-sed -i "s/localhost/mariadb/" wp-config.php
+sed -i "s/define( 'DB_HOST', 'localhost' );/define( 'DB_HOST', 'mariadb' );/" wp-config.php
 
 sleep 10
 
@@ -29,14 +29,6 @@ wp user create \
     --allow-root
 
 wp theme activate twentytwentyfour --allow-root
-
-sed -i "/\/\* That's all, stop editing! Happy publishing. \*\//i \
-define('WP_REDIS_CLIENT', 'phpredis');\ndefine('WP_REDIS_HOST', 'redis');\ndefine('WP_REDIS_PORT', 6379);\ndefine('WP_CACHE', true);
-" wp-config.php
-
-wp plugin install redis-cache --activate --allow-root
-
-wp redis enable --allow-root --path=/var/www/wordpress
 
 mkdir -p /run/php
 php-fpm7.4 -F

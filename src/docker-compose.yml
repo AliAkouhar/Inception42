@@ -38,6 +38,8 @@ services:
       - wordpress_data:/var/www/wordpress
     depends_on:
       - mariadb
+    env_file:
+      - .env
 
 networks:
   inception_network:
