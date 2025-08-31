@@ -8,8 +8,10 @@ services:
     restart: always
     networks:
       - inception_network
-    # volumes:
-    #   - wordpress_data:/var/www/html
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - wordpress
   mariadb:
     container_name: mariadb
     image: mariadb
@@ -23,9 +25,20 @@ services:
       - inception_network
     volumes:
       - mariadb_data:/var/lib/mysql
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build: ./requirements/wordpress
+    ports:
+      - "9000:9000"
+    restart: always
+    networks:
+      - inception_network
+    volumes:
+      - wordpress_data:/var/www/wordpress
+    depends_on:
+      - mariadb
 
-
-      
 networks:
   inception_network:
     driver: bridge
@@ -35,4 +48,10 @@ volumes:
     driver_opts:
       type: none
       device: /home/aakouhar/data/mariadb
+      o: bind
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/aakouhar/data/wordpress
       o: bind
