@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "[INFO] Ensuring database and user exist..."
-
+echo "version 2 of ali"
 # Start MariaDB in the background
 mysqld_safe --skip-networking &
 sleep 10
