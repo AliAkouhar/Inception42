@@ -9,7 +9,7 @@ services:
     networks:
       - inception_network
     volumes:
-      - wordpress_data:/var/www/html
+      - wordpress_data:/var/www/wordpress
     depends_on:
       - wordpress
   mariadb:

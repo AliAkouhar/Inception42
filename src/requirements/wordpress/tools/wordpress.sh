@@ -5,7 +5,7 @@ cd /var/www/wordpress
 
 wp core download --allow-root
 
-mv wp-config-sample.php wp-config.php
+cp wp-config-sample.php wp-config.php
 
 sed -i "s/define( 'DB_NAME', 'database_name_here' );/define( 'DB_NAME', '${MYSQL_DATABASE}' );/" wp-config.php
 sed -i "s/define( 'DB_USER', 'username_here' );/define( 'DB_USER', '${MYSQL_USER}' );/" wp-config.php
